@@ -13,6 +13,7 @@ public class GrassTrigger : MonoBehaviour
         if (other.GetComponent<PlayerMovement>() != null)
         {
             FindObjectOfType<GameManager>().GrassDie();
+            FindObjectOfType<BgmManager>().GrassDie();
             triggered = true;
         }
     }

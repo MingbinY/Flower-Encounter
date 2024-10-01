@@ -8,6 +8,9 @@ public class PlayerMovement : MonoBehaviour
     PlayerManager playerManager;
     Rigidbody rb;
 
+    AudioSource audioSource;
+    public AudioClip footstep;
+
     public float moveSpeed = 2f;
     public float runSpeed = 4f;
     float currentSpeed = 0;
@@ -21,6 +24,11 @@ public class PlayerMovement : MonoBehaviour
     {
         playerManager = GetComponent<PlayerManager>();
         rb = GetComponent<Rigidbody>();
+
+        audioSource = GetComponent<AudioSource>();
+        audioSource.clip = footstep;
+        audioSource.loop = true;
+        audioSource.Play();
     }
 
     private void Update()
@@ -31,6 +39,7 @@ public class PlayerMovement : MonoBehaviour
         moveDir = transform.right * x + transform.forward * y;
 
         SpeedLimit();
+        audioSource.mute = x <= 0 && y <= 0;
     }
 
     private void FixedUpdate()

@@ -10,6 +10,8 @@ public class SkyboxTrigger : MonoBehaviour
     public GameObject bossGrass;
     public float bossWaitTime = 3.0f;
 
+    public ParticleSystem bossSpawnEffect;
+
     private void OnTriggerEnter(Collider other)
     {
         if (triggered) return;
@@ -24,8 +26,12 @@ public class SkyboxTrigger : MonoBehaviour
 
     IEnumerator BossShowUp()
     {
+        bossSpawnEffect.Play();
         yield return new WaitForSeconds(bossWaitTime);
+        FindObjectOfType<BgmManager>().BossEncounter();
         bossGrass.SetActive(false);
         boss.SetActive(true);
+        bossSpawnEffect.Stop();
+        bossSpawnEffect.gameObject.SetActive(false);
     }
 }
